@@ -1,12 +1,8 @@
 import { withForm } from './withForm'
 
 function LoginFormBase({ values, handleChange, handleSubmit }) {
-  const onSubmit = formData => {
-    console.log('Datos del formulario:', formData)
-  }
-
   return (
-    <form onSubmit={e => handleSubmit(e, onSubmit)}>
+    <form onSubmit={handleSubmit}>
       <input type='email' name='email' value={values.email || ''} onChange={handleChange} placeholder='Email' />
       <input
         type='password'
@@ -20,6 +16,7 @@ function LoginFormBase({ values, handleChange, handleSubmit }) {
   )
 }
 
-const LoginFormHoc = withForm(LoginFormBase)
+const initialState = { email: '', password: '' }
+const LoginFormHoc = withForm(LoginFormBase, initialState)
 
 export default LoginFormHoc

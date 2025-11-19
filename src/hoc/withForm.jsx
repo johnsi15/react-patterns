@@ -1,9 +1,12 @@
 import { useState } from 'react'
 
-// eslint-disable-next-line no-unused-vars
-function withForm(WrappedComponent) {
-  return function FormWrapper({ onSubmit, ...props }) {
-    const [values, setValues] = useState({})
+function getDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component'
+}
+
+function withForm(WrappedComponent, initialState = {}) {
+  const FormWrapper = ({ onSubmit, ...props }) => {
+    const [values, setValues] = useState(initialState)
 
     const handleChange = e => {
       const { name, value } = e.target
@@ -12,11 +15,14 @@ function withForm(WrappedComponent) {
 
     const handleSubmit = e => {
       e.preventDefault()
-      onSubmit(JSON.stringify(values))
+      onSubmit(values)
     }
 
     return <WrappedComponent {...props} values={values} handleChange={handleChange} handleSubmit={handleSubmit} />
   }
+
+  FormWrapper.displayName = `withForm(${getDisplayName(WrappedComponent)})`
+  return FormWrapper
 }
 
 export { withForm }

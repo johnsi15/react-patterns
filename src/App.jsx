@@ -1,4 +1,5 @@
 import './App.css'
+import { TodoList } from './compound-components/todo-list-compound'
 import { Counter } from './custom-hook/counter-use-custom-hook'
 import { RepoList } from './custom-hook/repo-list-use-custom-hook'
 import { Button } from './extensible-styles/button'
@@ -67,6 +68,21 @@ function App() {
       >
         Botón Inline
       </ButtonWithExtensibleStyles>
+
+      {/* puedes usar varios [TodoList]src/compound-components/todo-list-compound.jsx ) independientes en la misma app, ya que cada uno crea su propio contexto y estado. Esto saca provecho del patrón: composición flexible y estado aislado sin interferencias. */}
+      <h2>Lista de Trabajo</h2>
+      <TodoList>
+        <TodoList.Title />
+        <TodoList.Form />
+        <TodoList.List />
+      </TodoList>
+
+      <h2>Lista Personal</h2>
+      <TodoList>
+        <TodoList.Title />
+        <TodoList.Form />
+        <TodoList.List />
+      </TodoList>
     </main>
   )
 }

@@ -7,6 +7,7 @@ import { Button as ButtonWithExtensibleStyles } from './extensible-styles/button
 import { LoginForm } from './hoc/login-form'
 import LoginFormHoc from './hoc/login-form-hoc'
 import { withForm } from './hoc/withForm'
+import { Mouse } from './render-props/Mouse'
 
 function ContactFormBase({ values, handleChange, handleSubmit }) {
   return (
@@ -83,6 +84,22 @@ function App() {
         <TodoList.Form />
         <TodoList.List />
       </TodoList>
+
+      <Mouse
+        render={position => (
+          <div>
+            <p>
+              Posición: {position.x}, {position.y}
+            </p>
+          </div>
+        )}
+      />
+
+      <Mouse
+        render={position => (
+          <img src='cat.jpg' style={{ position: 'absolute', left: position.x, top: position.y }} alt='Gato' />
+        )}
+      />
     </main>
   )
 }
